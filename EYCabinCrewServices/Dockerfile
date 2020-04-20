@@ -19,4 +19,4 @@ RUN dotnet publish "EYCabinCrewServices.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "EYCabinCrewServices.dll"]
+ENTRYPOINT ["dotnet", "EYCabinCrewServices.dll", "--server.urls", "http://+:80;https://+:443"]

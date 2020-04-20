@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caching", "Caching\Caching.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repository\Repositories.csproj", "{780C86E0-E529-4563-BB18-608A1C61C5B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{388E02CC-2CD8-4143-92DC-37F13E7646C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{388E02CC-2CD8-4143-92DC-37F13E7646C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{1FAFC9AB-6A2C-472D-BFFC-2C620806C24B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{388E02CC-2CD8-4143-92DC-37F13E7646C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{388E02CC-2CD8-4143-92DC-37F13E7646C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{388E02CC-2CD8-4143-92DC-37F13E7646C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FAFC9AB-6A2C-472D-BFFC-2C620806C24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FAFC9AB-6A2C-472D-BFFC-2C620806C24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FAFC9AB-6A2C-472D-BFFC-2C620806C24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FAFC9AB-6A2C-472D-BFFC-2C620806C24B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
