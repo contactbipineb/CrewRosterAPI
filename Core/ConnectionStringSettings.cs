@@ -4,10 +4,9 @@ namespace EY.CabinCrew.Core
 {
     public class ConnectionStringSettings
     {
-        public string Name { get; set; }
+        public string DefaultTableName { get; set; }
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; }
-        public string DefaultTableName { get; set; }
 
         public ConnectionStringSettings()
         {
@@ -20,14 +19,14 @@ namespace EY.CabinCrew.Core
 
         public ConnectionStringSettings(String name, String connectionString, String providerName)
         {
-            this.Name = name;
+            this.DefaultTableName = name;
             this.ConnectionString = connectionString;
             this.ProviderName = providerName;
         }
 
         protected bool Equals(ConnectionStringSettings other)
         {
-            return String.Equals(Name, other.Name) && String.Equals(ConnectionString, other.ConnectionString) && String.Equals(ProviderName, other.ProviderName);
+            return String.Equals(DefaultTableName, other.DefaultTableName) && String.Equals(ConnectionString, other.ConnectionString) && String.Equals(ProviderName, other.ProviderName);
         }
 
         public override bool Equals(Object obj)
@@ -42,7 +41,7 @@ namespace EY.CabinCrew.Core
         {
             unchecked
             {
-                int hashCode = (Name != null ? Name.GetHashCode() : 0);
+                int hashCode = (DefaultTableName != null ? DefaultTableName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ConnectionString != null ? ConnectionString.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ProviderName != null ? ProviderName.GetHashCode() : 0);
                 return hashCode;
