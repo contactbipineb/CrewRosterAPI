@@ -11,51 +11,87 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EY.CabinCrew.Model;
 
 namespace EY.CabinCrew.Repositories
 {
-    public class RosterRepository : IRepository<Roster>
+    public class CrewRosterRepository : IRepository<Roster>
     {
-        private static ILogger<RosterRepository> Logger = LoggerFactory.CreateLogger<RosterRepository>();
+        private static ILogger<DatabaseCrewRosterRepository> Logger = LoggerFactory.CreateLogger<DatabaseCrewRosterRepository>();
 
-        private static Lazy<ConcurrentDictionary<int, Roster>> rosters = new Lazy<ConcurrentDictionary<int, Roster>>(() =>
+        private static Lazy<IList<ExcelRow>> rows = new Lazy<IList<ExcelRow>>(() =>
         {
-            Dictionary<int, Roster> dict = new Dictionary<int, Roster>();
-            DirectoryInfo dir = new DirectoryInfo("./Resources");
-            foreach (FileInfo file in dir.GetFiles("*.json", SearchOption.TopDirectoryOnly))
-            {
-                Logger.LogInformation(file.FullName);
-                string json = File.ReadAllText(file.FullName, Encoding.UTF8);
-                Roster roster = JsonConvert.DeserializeObject<Roster>(json);
-                if (int.TryParse(Path.GetFileNameWithoutExtension(file.Name), out int id))
-                    dict[id] = roster;
-            }
 
-            return new ConcurrentDictionary<int, Roster>(dict);
+            IList<ExcelRow> excelRows = ExcelAdpater.Read<ExcelRow>(@"C:\Users\bberkmance\Desktop\CrewRosterBot\Roster.csv", ",");
+
+            return excelRows;
         }, LazyThreadSafetyMode.PublicationOnly);
 
-        public static ConcurrentDictionary<int, Roster> Rosters => rosters.Value;
+        public static IList<ExcelRow> Rows => rows.Value;
 
-        static RosterRepository()
-        {
-            Console.WriteLine(Rosters.Count);
-        }
+        
+        //public RosterRepository(ISqlAdapter adapter)
+        //{
+        //    Adapter = adapter;
+        //}
 
-        public async Task<Roster> Find(Func<Roster, bool> predicate)
+        public ISqlAdapter Adapter { get; }
+
+        public async Task<Roster> Get(string employeeId)
         {
+
             return await Task.Run(() =>
             {
-                KeyValuePair<int, Roster> roster = Rosters.FirstOrDefault(kvp => predicate(kvp.Value));
-                if (roster.Equals(default(KeyValuePair<int, Roster>)))
-                    return Rosters[1];
-                return roster.Value;
-                //int fileNumber = new Random().Next(1, 6);
-            });
-        }
+                List <ExcelRow> excelRows = Rows.Where(r => r.crew_id == employeeId).ToList();
+                Roster roster = new Roster();
+                roster.EmpId = employeeId;
+                roster.Plan = ConvertRowsToPlans(excelRows);
+                PersonalDetails personalDetails = new PersonalDetails();
+                List<PersonalDetails> pd = new List<PersonalDetails>();
 
-        public Task<List<Roster>> FindAll(Func<Roster, bool> predicate)
+                ExcelRow row = excelRows.FirstOrDefault();
+                if (row != null)
+                    roster.PersonalDetails = new PersonalDetails { Name = row.crew_name };
+              
+               
+                return roster;
+               
+            });
+
+            
+        }
+        
+        private List<Plan> ConvertRowsToPlans(List<ExcelRow> excelRows)
         {
-            throw new NotImplementedException();
+            List<Plan> plans = new List<Plan>();
+            foreach (ExcelRow row in excelRows)
+            {
+                Plan plan = new Plan();
+                plan.FlightDetails = new FlightDetails();
+                plan.FlightDetails.Code = row.flight_number;
+                plan.FlightDetails.FlightStartDate = Convert.ToDateTime(row.schd_dep_date);
+                plan.FlightDetails.AcType = row.sub_fleet;
+                plan.FlightDetails.Source = row.dep_country;
+                plan.FlightDetails.SourceCode = row.sched_dep_iata;
+                plan.FlightDetails.SourceFlightCode = row.flight_number;
+                plan.FlightDetails.FlightDepartueTime = row.std_z;
+                plan.FlightDetails.Destination = row.sched_arr_iata;
+                plan.FlightDetails.DestinationCode = row.sched_arr_iata;
+                plan.FlightDetails.DestinationFlightCode = row.flight_number;
+                plan.FlightDetails.FlightEndDate = Convert.ToDateTime(row.sta_z_date);
+                plan.FlightDetails.FlightArrivalTime = row.sta_z_date_time;
+                plan.FlightDetails.TravelDuraion = row.block_hour_schedule;
+                plan.FlightDetails.GateNumber = row.dep_gate;
+                plan.FlightDetails.Blockhours = row.block_hour_schedule;
+                plan.FlightDetails.TailNo = row.reg;
+
+
+                //Fill the plan
+                plans.Add(plan);
+                                              
+            }
+
+            return plans;
         }
     }
 }

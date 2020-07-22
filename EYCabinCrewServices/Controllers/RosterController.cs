@@ -19,10 +19,11 @@ namespace EY.CabinCrew.Services.Controllers
         }
 
         [HttpGet]
-        public async Task<Roster> Get([FromQuery] string employeeId)
+        public async Task<Roster> Get(string employeeId)
         {
-            Roster roster = await repository.Find(r => r.EmpId == employeeId);
-            logger.LogInformation($"roster EmpId: {roster.EmpId}, plans: {roster.Plan.Count}");
+            Roster roster = await repository.Get(employeeId);
+          //  logger.LogInformation($"roster EmpId: {roster.EmpId}, plans: {roster.Plan.Count}");
+
             return roster;
         }
     }

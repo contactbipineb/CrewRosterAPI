@@ -24,14 +24,14 @@ namespace EY.CabinCrew.Services.Controllers
         }
 
         [HttpGet]
-        public async Task<DataTable> Get()
+        public async Task<DataTable> Get(string crewid)
         {
 
             return await Task.Run(() =>
             {
                 try
                 {
-                    string commandText = $"SELECT * FROM {ConnectionSettings.DefaultTableName}";
+                    string commandText = $"SELECT top 100 * FROM {ConnectionSettings.DefaultTableName} where personal_id= {@crewid}";
                     DataTable table = new DataTable();
 
                     using (SqlConnection connection = new SqlConnection(ConnectionSettings.ConnectionString))

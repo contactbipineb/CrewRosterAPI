@@ -8,12 +8,12 @@ namespace EY.CabinCrew.Model.Entities
         public DateTimeOffset FlightStartDate { get; set; }
         public string Source { get; set; }
         public string SourceCode { get; set; }
-        public long SourceFlightCode { get; set; }
+        public string SourceFlightCode { get; set; }
         public string SourceCurrencyCode { get; set; }
         public string FlightDepartueTime { get; set; }
         public string Destination { get; set; }
         public string DestinationCode { get; set; }
-        public long DestinationFlightCode { get; set; }
+        public string DestinationFlightCode { get; set; }
         public string DestinationCurrencyCode { get; set; }
         public DateTimeOffset FlightEndDate { get; set; }
         public string FlightArrivalTime { get; set; }
