@@ -4,6 +4,7 @@ namespace EY.CabinCrew.Model.Entities
 {
     public partial class FlightDetails
     {
+        public int Id { get; set; }
         public string Code { get; set; }
         public DateTimeOffset FlightStartDate { get; set; }
         public string Source { get; set; }

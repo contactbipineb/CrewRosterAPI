@@ -28,7 +28,7 @@ namespace EY.CabinCrew.Repositories
             {
                 await connection.OpenAsync();
 
-                if (string.IsNullOrWhiteSpace(query))
+                if (!string.IsNullOrWhiteSpace(query))
 
                     entities = await connection.QueryAsync<TEntity>(query, param);
                 else
@@ -47,7 +47,7 @@ namespace EY.CabinCrew.Repositories
             {
                 await connection.OpenAsync();
 
-                if (string.IsNullOrWhiteSpace(query))
+                if (!string.IsNullOrWhiteSpace(query))
 
                     entity = await connection.QuerySingleAsync<TEntity>(query, param);
                 // entities = await connection.QueryAsync<TEntity>(query,param);

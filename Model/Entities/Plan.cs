@@ -4,6 +4,7 @@ namespace EY.CabinCrew.Model.Entities
 {
     public partial class Plan
     {
+        public int Id { get; set; }
         public string Month { get; set; }
         public long WeekNumber { get; set; }
         public DayOfWeek Day { get; set; }
@@ -15,5 +16,6 @@ namespace EY.CabinCrew.Model.Entities
         public DateTimeOffset LastUpdated { get; set; }
         public FlightDetails FlightDetails { get; set; }
         public string VacationReason { get; set; }
+
     }
 }

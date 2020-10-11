@@ -30,7 +30,8 @@ namespace EYCabinCrewServices
             services.AddSingleton<ISqlAdapter, SqlAdapter>();
 
             services.AddSingleton<IRepository<Roster>, DatabaseCrewRosterRepository>();
-            
+            //services.AddSingleton<IRepository<Roster>, CrewRosterRepository>();
+
             services.AddSingleton<IMemoryCache, MemoryCache>();
            
             services.AddCors(options =>
@@ -53,7 +54,7 @@ namespace EYCabinCrewServices
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

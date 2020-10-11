@@ -2,16 +2,11 @@
 using EY.CabinCrew.Model.Entities;
 using Microsoft.Extensions.Logging;
 using LoggerFactory = EY.CabinCrew.Logging.LoggerFactory;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EY.CabinCrew.Model;
 
 namespace EY.CabinCrew.Repositories
 {
