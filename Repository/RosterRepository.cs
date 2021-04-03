@@ -1,4 +1,5 @@
-﻿using EY.CabinCrew.Core;
+﻿/*
+using EY.CabinCrew.Core;
 using EY.CabinCrew.Model.Entities;
 using Microsoft.Extensions.Logging;
 using LoggerFactory = EY.CabinCrew.Logging.LoggerFactory;
@@ -90,3 +91,4 @@ namespace EY.CabinCrew.Repositories
         }
     }
 }
+*/

@@ -3,6 +3,8 @@
     public partial class PersonalDetails
     {
         public string Name { get; set; }
+        public string Rank { get; set; }
+        public string CrewType { get; set; }
         public string Address { get; set; }
         public string Contact { get; set; }
         public string EmergencyContactName { get; set; }
